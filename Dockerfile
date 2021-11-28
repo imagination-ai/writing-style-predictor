@@ -8,7 +8,8 @@ RUN apt-get update -y && \
        locales \
        libssl-dev \
        libffi-dev \
-       libfreetype6-dev
+       libfreetype6-dev \
+       vim
 
 RUN mkdir -p /build/tests
 RUN mkdir /applications
@@ -58,4 +59,7 @@ COPY --from=base /build/style /applications/style
 
 ENV PYTHONPATH /applications
 
-ENTRYPOINT ["python3", "applications/style-app-entrypoint.sh"]
+EXPOSE 8080
+
+COPY entrypoints/style-app-entrypoint.sh /applications/style-app-entrypoint.sh
+ENTRYPOINT ["sh", "/applications/style-app-entrypoint.sh"]

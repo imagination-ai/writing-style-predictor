@@ -1,7 +1,7 @@
 cd /applications || exit
 
-gunicorn -k uvicorn.worker.UvicornWorker \
+python3 -m gunicorn -k uvicorn.workers.UvicornWorker \
   --workers 4 \
   --bind "0.0.0.0:${APP_PORT:-8080}" \
-  style.app:app \
+  style.main:app \
   "$@"
